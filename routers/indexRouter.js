@@ -1,15 +1,26 @@
 const express = require("express");
-const router = express.Router();
+const indexRouter = express.Router();
 const Client = require("../models/Client");
 const Product = require("../models/Product");
 
+//view data
+const viewData = {
+    title: "A02 - Express Billing",
+    users: ["Pat", "Sydnee", "Kai", "Chuan"],
+    pages: [
+      { name: "Home", path: "/"},
+      { name: "Clients", path: "/clients"},
+      { name: "Products", path: "/products"}, 
+    ],
+  };
+
 //home page route
-router.get("/", async (req, res) => {
-    res.render("home");
+indexRouter.get("/", async (req, res) => {
+    res.render("home", {...viewData, title: "Home"});
 });
 
 //clients page route
-router.get("/clients", async (req,res) =>{
+indexRouter.get("/clients", async (req,res) =>{
     try{
         const clients = await Client.find().sort({name: 1});
         res.render("clients", {clients});
@@ -20,7 +31,7 @@ router.get("/clients", async (req,res) =>{
 });
 
 //client details route
-router.get("/clients/:id", async (req, res) => {
+indexRouter.get("/clients/:id", async (req, res) => {
     try{
         const client = await Client.findById(req.params.id);
         res.render("clientDetails", {client})
@@ -29,3 +40,5 @@ router.get("/clients/:id", async (req, res) => {
         res.status(404).send("Client not found.")
     }
 });
+
+module.exports = indexRouter;

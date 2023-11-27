@@ -1,0 +1,12 @@
+<header>
+    <link rel="stylesheet" href="styles/styles.css">
+    <nav>
+      <ul class="horizontal-nav">
+        
+        <!-- top level pages in NavBar -->
+        <% for (let i = 0; i < pages.length; i++) { %>
+        <li><a href="<%= pages[i].path %>"><%= pages[i].name %></a></li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
