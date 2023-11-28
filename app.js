@@ -3,7 +3,8 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 3007;
+require("dotenv").config();
 
 //declaring mongoose
 const mongoose = require("mongoose");
@@ -11,8 +12,8 @@ const Product = require("./models/Product");
 const Client = require("./models/Client");
 
 //mongoose connection string
-const uri = "mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
-
+const uri = //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
+        process.env.MONGO_CONNECTION_STRING;
 //load indexRouter
 const indexRouter = require("./routers/indexRouter");
 
