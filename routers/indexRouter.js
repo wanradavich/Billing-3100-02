@@ -41,4 +41,24 @@ indexRouter.get("/clients/:id", async (req, res) => {
     }
 });
 
+indexRouter.get("/products", async (req, res) => {
+    try{
+        const products = await Product.find().sort({productName: 1});
+        res.render("products", {...viewData, products, title: "Products"});
+    }catch (err){
+        console.error(err);
+        res.status(500).send("Server Error")
+    }
+});
+
+indexRouter.get("/products/:id", async (req, res) => {
+    try{
+        const products = await Product.findById(req.params.id);
+        res.render("productDetails", {...viewData, products, title: "Product Detail"})
+    } catch (err){
+        console.error(err);
+        res.status(404).send("Client not found.")
+    }
+});
+
 module.exports = indexRouter;

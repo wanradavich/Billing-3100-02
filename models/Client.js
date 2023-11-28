@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const clientSchema = new mongoose.Schema({
-    name: {
+    clientName: {
         type: String,
         required: true,
     },
-    code: {
+    clientCode: {
         type: String,
         required: true,
     },
