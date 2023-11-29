@@ -12,10 +12,11 @@ const Product = require("./models/Product");
 const Client = require("./models/Client");
 
 //mongoose connection string
-const uri = //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
-        process.env.MONGO_CONNECTION_STRING;
+ //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
+ const uri = process.env.MONGO_CONNECTION_STRING;
 //load indexRouter
 const indexRouter = require("./routers/indexRouter");
+const productsRouter = require("./routers/productsRouter");
 
 //tell express where to find templates(views)
 app.set("views", path.join(__dirname, "views"));
@@ -36,6 +37,7 @@ app.use(logger("dev"));
 
 //parse applicaion form-urlencoded
 const bodyParser = require("body-parser");
+const { profile } = require("console");
 app.use(bodyParser.urlencoded({extended: false }));
 app.use(bodyParser.json());
 
@@ -44,6 +46,7 @@ app.use(express.static("public"));
 
 //index route
 app.use("/", indexRouter);
+app.use("/products", productsRouter);
 
 //catch any unmatched routes
 app.all("/*", (req, res) => {
@@ -63,17 +66,17 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // Once we have our connection, let's load and log our profiles
-// db.once("open", async function () {
-//   const profiles = await getAllClientProfiles();
-//   console.log(profiles);
-//   // if we don't close the db connection, our app will keep running
-//   db.close();
-// });
+db.once("open", async function () {
+  const profiles = await getAllProfiles();
+  console.log("once open console log check: ", profiles);
+//   if we don't close the db connection, our app will keep running
+  db.close();
+});
 
-// async function getAllClientProfiles() {
-//   let profiles = await Client.find({});
-//   return profiles;
-// }
+async function getAllProfiles() {
+  let profiles = await Product.find({});
+  return profiles;
+}
 
 
 
