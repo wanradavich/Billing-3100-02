@@ -1,9 +1,9 @@
 const ProductOps = require("../data/ProductOps");
-const _profileOps = new ProductOps();
+const _productOps = new ProductOps();
 
 exports.Products = async function(request, response){
     console.log("loading products from controller");
-    let products = await _profileOps.getAllProducts();
+    let products = await _productOps.getAllProducts();
     if (products) {
         response.render("products", {
             title: "Express Billing - Products",
@@ -20,8 +20,8 @@ exports.Products = async function(request, response){
 exports.ProductDetail = async function (request, response) {
     const productId = request.params.id;
     console.log(`loading single product by id ${productId}`);
-    let product = await _productOps.getProfileById(profileId);
-    let products = await _productOps.getAllProfiles();
+    let product = await _productOps.getProductById(productId);
+    let products = await _productOps.getAllProducts();
     if (product) {
       response.render("product", {
         title: "Express Yourself - " + product.productName,

@@ -8,7 +8,7 @@ require("dotenv").config();
 
 //declaring mongoose
 const mongoose = require("mongoose");
-const Product = require("./models/Product");
+
 const Client = require("./models/Client");
 
 //mongoose connection string

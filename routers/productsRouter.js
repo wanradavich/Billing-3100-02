@@ -13,8 +13,13 @@ const viewData = {
       { name: "Products", path: "/products"}, 
     ],
   };
-
-productsRouter.get("/", ProfileController.Products);
+  // ProfileController.Products
+productsRouter.get("/", (req, res) => {
+  
+  res.render("products", {pages: viewData.pages, 
+                          title: "Products", 
+                          products: ProfileController.Products})
+});
 
 productsRouter.get("/products/:id", ProfileController.ProductDetail);
 

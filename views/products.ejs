@@ -1,13 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+</head>
 <body>
-    <div id="profile-body">
-        <div>
-            <h1><%= title %></h1>
-            <ul>
-                <% products.productName.forEach(product => { %>
-                    <li><%= product %></li>
-                <% }) %>
-            </ul>
-        </div>
-    </div>
+    <h1><%= title %></h1>
+    <ul>
+        <% products.forEach(product => { %>
+            <li><%= product.productName %></li>
+        <% }) %>
+    </ul>
 </body>
+</html>
 
