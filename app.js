@@ -38,6 +38,7 @@ app.use(logger("dev"));
 //parse applicaion form-urlencoded
 const bodyParser = require("body-parser");
 const { profile } = require("console");
+const Profile = require("./models/Product");
 app.use(bodyParser.urlencoded({extended: false }));
 app.use(bodyParser.json());
 
@@ -67,29 +68,22 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // Once we have our connection, let's load and log our profiles
 db.once("open", async function () {
-    try {
-      const products = await getAllProducts();
-      console.log("Products:", products);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  });
+    const profiles = await getAllProfiles();
+    console.log("Profiles:", profiles);
+    db.close();
+});
   
   // Don't close the connection here
   
-  async function getAllProducts() {
-    try {
-      const profiles = await Product.find({});
-      return profiles;
-    } catch (error) {
-      throw new Error("Error fetching products");
-    }
+  async function getAllProfiles() {
+    let profiles = await Profile.find({});
+    return profiles;
   }
 
-async function getProductsById(id){
-    console.log(`getting product by id ${id}`);
-    let product = await Product.findById(id);
-    return product
+async function getProfilesById(id){
+    console.log(`getting profile by id ${id}`);
+    let profile = await Profile.findById(id);
+    return profile;
 }
 
 

@@ -12,6 +12,9 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     }
-});
+    },
+    {collection: "profiles"}
+);
+const Profile = mongoose.model("Product", productSchema);
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = Profile;
