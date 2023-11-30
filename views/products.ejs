@@ -1,0 +1,16 @@
+<body>
+    <h1><%= title %></h1>
+    <!--SEARCH BAR TO BE INCLUDED LATER-->
+    <a href="/profiles/edit"><button>+ New Product</button></a>
+    <ul>
+        <% products.forEach(product => { %>
+            <% if (product && product.productName && product._id) { %>
+                <li>
+                    <a href="/products/<%= product._id %>"><%= product.productName %></a> 
+                    <a href="/products"><button>Delete</button></a>
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+</body>
+

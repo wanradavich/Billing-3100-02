@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
-    name: {
+    productName: {
         type: String,
         required: true,
     },
-    code: {
+    productCode: {
         type: String,
         required: true,
     },
@@ -12,6 +12,9 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     }
-});
+    },
+    {collection: "profiles"}
+);
+const Profile = mongoose.model("Product", productSchema);
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = Profile;

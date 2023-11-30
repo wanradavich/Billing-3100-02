@@ -1,7 +1,6 @@
 const express = require("express");
 const indexRouter = express.Router();
-const Client = require("../models/Client");
-const Product = require("../models/Product");
+// const Client = require("../models/Client");
 
 //view data
 const viewData = {
@@ -22,8 +21,8 @@ indexRouter.get("/", async (req, res) => {
 //clients page route
 indexRouter.get("/clients", async (req,res) =>{
     try{
-        const clients = await Client.find().sort({name: 1});
-        res.render("clients", {clients});
+        // const clients = await Client.find().sort({name: 1});
+        // res.render("clients", {clients});
     }catch (err){
         console.error(err);
         res.status(500).send("Server Error");
@@ -33,12 +32,13 @@ indexRouter.get("/clients", async (req,res) =>{
 //client details route
 indexRouter.get("/clients/:id", async (req, res) => {
     try{
-        const client = await Client.findById(req.params.id);
-        res.render("clientDetails", {client})
+        // const client = await Client.findById(req.params.id);
+        // res.render("clientDetails", {client})
     } catch (err){
         console.error(err);
         res.status(404).send("Client not found.")
     }
 });
+
 
 module.exports = indexRouter;

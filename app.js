@@ -8,14 +8,13 @@ require("dotenv").config();
 
 //declaring mongoose
 const mongoose = require("mongoose");
-const Product = require("./models/Product");
-const Client = require("./models/Client");
 
 //mongoose connection string
-const uri = //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
-        process.env.MONGO_CONNECTION_STRING;
+ //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
+ const uri = process.env.MONGO_CONNECTION_STRING;
 //load indexRouter
 const indexRouter = require("./routers/indexRouter");
+const productsRouter = require("./routers/productsRouter");
 
 //tell express where to find templates(views)
 app.set("views", path.join(__dirname, "views"));
@@ -36,6 +35,8 @@ app.use(logger("dev"));
 
 //parse applicaion form-urlencoded
 const bodyParser = require("body-parser");
+const { profile } = require("console");
+const Profile = require("./models/Product");
 app.use(bodyParser.urlencoded({extended: false }));
 app.use(bodyParser.json());
 
@@ -44,6 +45,7 @@ app.use(express.static("public"));
 
 //index route
 app.use("/", indexRouter);
+app.use("/products", productsRouter);
 
 //catch any unmatched routes
 app.all("/*", (req, res) => {
@@ -64,15 +66,22 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // Once we have our connection, let's load and log our profiles
 // db.once("open", async function () {
-//   const profiles = await getAllClientProfiles();
-//   console.log(profiles);
-//   // if we don't close the db connection, our app will keep running
-//   db.close();
+//     const profiles = await getAllProfiles();
+//     console.log("Profiles:", profiles);
+//     db.close();
 // });
+  
+  // Don't close the connection here
+  
+//   async function getAllProfiles() {
+//     let profiles = await Profile.find({});
+//     return profiles;
+//   }
 
-// async function getAllClientProfiles() {
-//   let profiles = await Client.find({});
-//   return profiles;
+// async function getProfilesById(id){
+//     console.log(`getting profile by id ${id}`);
+//     let profile = await Profile.findById(id);
+//     return profile;
 // }
 
 
