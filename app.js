@@ -9,8 +9,6 @@ require("dotenv").config();
 //declaring mongoose
 const mongoose = require("mongoose");
 
-const Client = require("./models/Client");
-
 //mongoose connection string
  //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
  const uri = process.env.MONGO_CONNECTION_STRING;
@@ -67,24 +65,24 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // Once we have our connection, let's load and log our profiles
-db.once("open", async function () {
-    const profiles = await getAllProfiles();
-    console.log("Profiles:", profiles);
-    db.close();
-});
+// db.once("open", async function () {
+//     const profiles = await getAllProfiles();
+//     console.log("Profiles:", profiles);
+//     db.close();
+// });
   
   // Don't close the connection here
   
-  async function getAllProfiles() {
-    let profiles = await Profile.find({});
-    return profiles;
-  }
+//   async function getAllProfiles() {
+//     let profiles = await Profile.find({});
+//     return profiles;
+//   }
 
-async function getProfilesById(id){
-    console.log(`getting profile by id ${id}`);
-    let profile = await Profile.findById(id);
-    return profile;
-}
+// async function getProfilesById(id){
+//     console.log(`getting profile by id ${id}`);
+//     let profile = await Profile.findById(id);
+//     return profile;
+// }
 
 
 

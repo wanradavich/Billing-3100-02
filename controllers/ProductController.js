@@ -36,3 +36,42 @@ exports.ProductDetail = async function (request, response) {
       });
     }
   };
+
+  exports.createProduct = async function(req,res){
+    const productData = req.body;
+    try{
+      const newProduct = await ProductOps.createProduct(productData);
+      res.status(201).json(newProduct);
+    }catch(error){
+      res.status(500).json({error: "Error creating product"});
+    }
+  };
+
+  exports.updateProduct = async function (req, res) {
+    const productId = req.params.id;
+    const newData = req.body; // Data to update, sent through the request body
+    try {
+      const updatedProduct = await ProductOps.updateProduct(productId, newData);
+      if (!updatedProduct) {
+        res.status(404).json({ error: "Product not found" });
+      } else {
+        res.status(200).json(updatedProduct);
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Error updating product" });
+    }
+  };
+  
+  exports.deleteProduct = async function (req, res) {
+    const productId = req.params.id;
+    try {
+      const deletedProduct = await ProductOps.deleteProduct(productId);
+      if (!deletedProduct) {
+        res.status(404).json({ error: "Product not found" });
+      } else {
+        res.status(200).json(deletedProduct);
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Error deleting product" });
+    }
+  };

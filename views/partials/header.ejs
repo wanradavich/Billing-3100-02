@@ -1,12 +1,11 @@
 <header>
-    <link rel="stylesheet" href="styles/styles.css">
-    <nav>
-      <ul class="horizontal-nav">
-        
-        <!-- top level pages in NavBar -->
-        <% for (let i = 0; i < pages.length; i++) { %>
-        <li><a href="<%= pages[i].path %>"><%= pages[i].name %></a></li>
-        <% } %>
-      </ul>
-    </nav>
-  </header>
+  <link rel="stylesheet" href="styles/styles.css">
+  <nav>
+    <ul class="horizontal-nav">
+      <!-- Changed this to 3 plain links because Josh said it doesnt need to be dynamic -->
+      <li><a href="/">Home</a></li>
+      <li><a href="/clients">Clients</a></li>
+      <li><a href="/products">Products</a></li>
+    </ul>
+  </nav>
+</header>
