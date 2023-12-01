@@ -1,5 +1,7 @@
 const ProductOps = require("../data/ProductOps");
 const _productOps = new ProductOps();
+const Product = require("../models/Product.js");
+
 
 exports.Products = async function(request, response){
     console.log("loading products from controller");
@@ -48,7 +50,9 @@ exports.ProductDetail = async function (request, response) {
 
   exports.CreateProduct = async function (request, response) {
     let tempProductObj = new Product ({
-      productName: request.body.name,
+      productName: request.body.productName,
+      unitCost: request.body.unitCost,
+      productCode: request.body.productCode,
     });
 
     let responseObj = await _productOps.createProduct(tempProductObj);
@@ -57,15 +61,15 @@ exports.ProductDetail = async function (request, response) {
       let products = await _productOps.getAllProducts();
       console.log(responseObj.obj);
       response.render("products", {
-        title: "Products - " + responseObj.obj.productName,
+        title: "Products",
         products: products,
-        productId: responseObj.obj.productId.valueOf(),
+        //product_id: responseObj.obj.product_id.valueOf(),
         //this is where we can set the layout
       });
     }
     else {
       console.log("An error occured. Product was not created.");
-      response.render("product-create", {
+      response.render("product-form", {
         title: "Create product",
         product: responseObj.obj,
         errorMessage: responseObj.errorMsg
@@ -87,16 +91,30 @@ exports.ProductDetail = async function (request, response) {
 
   exports.EditProduct = async function (request, response) {
     const productId = request.body.product_id;
-    const productName = request.body.name;
+    const productObj = {
+      productName: request.body.productName,
+      unitPrice: request.body.unitCost,
+      productCode: request.body.productCode
+    }
 
-    let responseObj = await _productOps.updateProductById(productId, productName);
+    // const formObj = {
+    //   name: req.body.name,
+    //   code: req.body.code,
+    //   unit_cost: req.body.unit_cost
+    // };
+    // const productName = request.body.productName;
+    // const unitPrice = request.body.unitCost;
+    // const productCode = request.body.productCode;
+    console.log(productId);
+//656a26e6490cf84463f9d76a
+    let responseObj = await _productOps.updateProductById(productId, productObj);
 
     if(responseObj.errorMsg == "") {
       let products = await _productOps.getAllProducts();
-      response.render("products", {
+      response.render("product", {
         title: "Products",
         products: products,
-        productId: responseObj.obj.product_id.valueOf(),
+        product_id: responseObj.obj.product_id.valueOf(),
         //insert layout to be used
       });
     }
@@ -105,8 +123,29 @@ exports.ProductDetail = async function (request, response) {
       response.render("product-form", {
         title: "Edit Product",
         product: responseObj.obj,
-        productId: productId,
+        product_id: productId,
         errorMessage: responseObj.errorMsg
+      });
+    }
+  };
+
+  exports.DeleteProductById = async function(request, response) {
+    const productId = request.params.id;
+    console.log(`deleting a single product by id ${productId}`);
+    let deletedProduct = await _productOps.deleteProduct(productId);
+    let products = await _productOps.getAllProducts();
+
+    if(deletedProduct) {
+      response.render("products", {
+        title: "Products",
+        products: products
+      });
+    }
+    else {
+      response.render("products", {
+        title: "Products",
+        products: products,
+        errorMessage: "Error. Could not delete product."
       });
     }
   };

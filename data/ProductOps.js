@@ -61,11 +61,30 @@ class ProductOps {
     }
   }
 
-  async updateProductById(id, productName) {
+  // async updateProductById(id, formData) {
+  //   const product = await Product.findById(id);
+  //   for (const key in formData) {
+  //     product[key] = formData[key];
+  //   }
+  // const result = await product.save();
+  //   const response = {
+  //     obj: result,
+  //     errorMsg: ''
+  //   };
+  //   return response;
+  // }
+  
+  async updateProductById(id, productObj) {
     console.log(`updating product by id ${id}`);
     const product = await Product.findById(id);
+    for (const key in productObj) {
+      product[key] = productObj[key]
+    }
     console.log("original product: ", product);
-    product.productName = productName;
+    //product.product_id = id;
+    // product.productName = productName;
+    // product.unitCost = unitCost;
+    // product.productCode = productCode
 
     let result = await product.save();
     console.log("updated product: ", result);
@@ -74,6 +93,8 @@ class ProductOps {
       errorMsg: ""
     };
   }
+
+
 
   async updateProduct(id, newData){
     try{
@@ -89,7 +110,9 @@ class ProductOps {
 
   async deleteProduct(id) {
     try {
+      console.log(`deleting product by id ${id}`);
       const deletedProduct = await Product.findByIdAndDelete(id);
+      console.log(deletedProduct);
       return deletedProduct;
     } catch (error) {
       console.error("Error deleting product: ", error);
