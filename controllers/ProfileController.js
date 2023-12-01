@@ -28,11 +28,10 @@ exports.Detail = async function (request, response) {
   let profile = await _profileOps.getProfileById(profileId);
   let profiles = await _profileOps.getAllProfiles();
   if (profile) {
-    response.render("profile", {
+    response.render("profileDetails", {
       title: "Express Yourself - " + profile.name,
       profiles: profiles,
       profileId: request.params.id,
-      layout: "./layouts/sidebar",
     });
   } else {
     response.render("profiles", {
@@ -69,7 +68,6 @@ exports.CreateProfile = async function (request, response) {
       title: "Express Yourself - " + responseObj.obj.name,
       profiles: profiles,
       profileId: responseObj.obj._id.valueOf(),
-      layout: "./layouts/sidebar",
     });
   }
   // There are errors. Show form the again with an error message.
