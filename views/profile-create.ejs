@@ -1,0 +1,8 @@
+<h3>New Profile</h3>
+
+<form action="/profiles/create" method="POST">   
+    <label for="name">Name:</label>
+    <input id="name" name="name" type="text" value=<%= profile.name ? profile.name : '' %> >
+    <button type="submit" value="Submit">Submit</button>
+</form>
+<%= errorMessage %>
