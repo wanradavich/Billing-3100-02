@@ -64,6 +64,8 @@ const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
+
+
 // Once we have our connection, let's load and log our profiles
 // db.once("open", async function () {
 //     const profiles = await getAllProfiles();

@@ -1,6 +1,35 @@
 const ProductOps = require("../data/ProductOps");
 const _productOps = new ProductOps();
 
+exports.SearchProducts = async function(req, res) {
+  const searchQuery = req.query.q;
+
+  try {
+      const products = await _productOps.find({
+          productName: { $regex: searchQuery, $options: "i" }  
+      });
+
+      res.render("products", { products: products }); 
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+},
+
+//for client in the ClientController later
+// exports.SearchClients =  async function(req, res) {
+//   const searchQuery = req.query.q;
+
+//   try {
+//       const clients = await Client.find({
+//           clientName: { $regex: searchQuery, $options: "i" }
+//       });
+
+//       res.render("clients", { clients }); // Render clients.ejs with filtered clients
+//   } catch (error) {
+//       res.status(500).json({ error: error.message });
+//   }
+// }
+
 exports.Products = async function(request, response){
     console.log("loading products from controller");
     let products = await _productOps.getAllProducts();
@@ -23,7 +52,7 @@ exports.ProductDetail = async function (request, response) {
     let product = await _productOps.getProductById(productId);
     let products = await _productOps.getAllProducts();
     if (product) {
-      response.render("product", {
+      response.render("productDetails", {
         title: "Express Yourself - " + product.productName,
         products: products,
         productId: request.params.id,
@@ -46,32 +75,4 @@ exports.ProductDetail = async function (request, response) {
       res.status(500).json({error: "Error creating product"});
     }
   };
-
-  exports.updateProduct = async function (req, res) {
-    const productId = req.params.id;
-    const newData = req.body; // Data to update, sent through the request body
-    try {
-      const updatedProduct = await ProductOps.updateProduct(productId, newData);
-      if (!updatedProduct) {
-        res.status(404).json({ error: "Product not found" });
-      } else {
-        res.status(200).json(updatedProduct);
-      }
-    } catch (error) {
-      res.status(500).json({ error: "Error updating product" });
-    }
-  };
   
-  exports.deleteProduct = async function (req, res) {
-    const productId = req.params.id;
-    try {
-      const deletedProduct = await ProductOps.deleteProduct(productId);
-      if (!deletedProduct) {
-        res.status(404).json({ error: "Product not found" });
-      } else {
-        res.status(200).json(deletedProduct);
-      }
-    } catch (error) {
-      res.status(500).json({ error: "Error deleting product" });
-    }
-  };
