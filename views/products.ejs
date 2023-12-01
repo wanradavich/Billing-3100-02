@@ -1,7 +1,7 @@
 <body>
     <h1><%= title %></h1>
     <!--SEARCH BAR TO BE INCLUDED LATER-->
-    <a href="/profiles/edit"><button>+ New Product</button></a>
+    <a href="/products/edit"><button>+ New Product</button></a>
     <ul>
         <% products.forEach(product => { %>
             <% if (product && product.productName && product._id) { %>
