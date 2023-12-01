@@ -65,7 +65,7 @@ exports.CreateProfile = async function (request, response) {
     let profiles = await _profileOps.getAllProfiles();
     console.log(responseObj.obj);
     response.render("profile", {
-      title: "Express Yourself - " + responseObj.obj.name,
+      title: "Express Billing - " + responseObj.obj.name,
       profiles: profiles,
       profileId: responseObj.obj._id.valueOf(),
     });
