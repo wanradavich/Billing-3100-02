@@ -1,7 +1,8 @@
 ul.horizontal-nav {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin-left: 10px;
+
   }
   
   /* Style for horizontal navigation */
@@ -9,5 +10,45 @@ ul.horizontal-nav {
     display: inline; 
     margin-right: 20px; 
   }
+
+.form-container{
+  margin-top: 20px;
+}
+
+.header-container{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.header-container>h1{
+  margin-right: 30px;
+  margin-left: 10px;
+}
+
+.product-container{
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.product-container>a{
+  margin-right: 20px;
+}
+
+main{
+  margin-bottom: 100px;
+  margin-left: 10px;
+  margin-top: 25px;
+}
+
+footer{
+  margin-left: 10px;
+}
+.searchbar{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
   
  
