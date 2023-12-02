@@ -13,7 +13,7 @@
 <div>
   <ul>
     <% for (let i = 0; i < profiles.length; i++ ) {%>
-    <li className="clientsNames">
+    <li class="clientsNames">
       <a href="/profiles/<%= profiles[i].id %>"><%= profiles[i].name %></a>
       <a href="/profiles/<%= profiles[i].id %>/delete"><button class="btn btn-danger">Delete</button></a>
     </li>
