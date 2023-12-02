@@ -1,31 +1,23 @@
 <head>
     <link rel="stylesheet" href="/styles/styles.css">
 </head>
-<main>
-    <div class="form-container">
-        <form action="/products/search" method="GET">
-          <input class="searchbar" type="text" name="q" placeholder="Search...">
-          <button class="btn btn-secondary" type="submit">Search</button>
-        </form>
-      </div>
-    <body>
-        <div class="header-container">
-            <h1>Products</h1>
-            <a class="btn btn-success" href="/product-form">+ New Product</a> <!--change path name to the one you create if needed-->
-        </div>
-        
-        <ul>
-            <% products.forEach(product => { %>
-                <% if (product && product.productName && product._id) { %>
-                    <li class="product-container">
-                        <a href="/products/<%= product._id %>"><%= product.productName %></a> 
-                        <a class="btn btn-danger" href="/products">Delete</a>
-                        <a class="btn btn-warning" href="/product-form">Edit</a> <!--change path name to the one you create if needed-->
-                    </li>
-                <% } %>
-            <% }) %>
-        </ul>
-    </body>
-</main>
+
+<body>
+    <div class="header-container">
+        <h1>Products</h1>
+        <a class="btn btn-success" href="/products/edit">+ New Product</a> <!--change path name to the one you create if needed-->
+    </div>
+    <ul>
+        <% products.forEach(product => { %>
+            <% if (product && product.productName && product._id) { %>
+                <li class="product-container">
+                    <a href="/products/<%= product._id %>"><%= product.productName %></a> 
+                    <a href="/products/<%= product._id%>/delete" class="btn btn-danger"><button>Delete</button></a>
+
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+</body>
 
 
