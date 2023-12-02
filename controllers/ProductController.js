@@ -92,7 +92,7 @@ exports.ProductDetail = async function (request, response) {
       response.render("products", {
         title: "Products",
         products: products,
-        product_id: responseObj.obj.product_id.valueOf(),
+        product_id: responseObj.obj._id.valueOf(),
         //this is where we can set the layout
       });
     }
@@ -127,21 +127,13 @@ exports.ProductDetail = async function (request, response) {
       productCode: request.body.productCode
     }
 
-    // const formObj = {
-    //   name: req.body.name,
-    //   code: req.body.code,
-    //   unit_cost: req.body.unit_cost
-    // };
-    // const productName = request.body.productName;
-    // const unitPrice = request.body.unitCost;
-    // const productCode = request.body.productCode;
     console.log(`This is the product id${productId}`);
-//656a26e6490cf84463f9d76a
+
     let responseObj = await _productOps.updateProductById(productId, productObj);
 
     if(responseObj.errorMsg == "") {
       let products = await _productOps.getAllProducts();
-      response.render("product", {
+      response.render("products", {
         title: "Products",
         products: products,
         
@@ -179,32 +171,7 @@ exports.ProductDetail = async function (request, response) {
       });
     }
   };
-
-  // exports.createProduct = async function(request, response){
-  //   const productData = req.body;
-  //   try{
-  //     const newProduct = await ProductOps.createProduct(productData);
-  //     res.status(201).json(newProduct);
-  //   }catch(error){
-  //     res.status(500).json({error: "Error creating product"});
-  //   }
-  // };
-
-  // exports.updateProduct = async function (req, res) {
-  //   const productId = req.params.id;
-  //   const newData = req.body; // Data to update, sent through the request body
-  //   try {
-  //     const updatedProduct = await ProductOps.updateProduct(productId, newData);
-  //     if (!updatedProduct) {
-  //       res.status(404).json({ error: "Product not found" });
-  //     } else {
-  //       res.status(200).json(updatedProduct);
-  //     }
-  //   } catch (error) {
-  //     res.status(500).json({ error: "Error updating product" });
-  //   }
-  // };
-  
+  //Im not sure if we need this function
   exports.deleteProduct = async function (req, res) {
     const productId = req.params.id;
     try {
