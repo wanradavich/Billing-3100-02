@@ -3,6 +3,20 @@ const ProfileOps = require("../data/ProfileOps");
 
 const _profileOps = new ProfileOps();
 
+exports.searchProfiles = async function(req, res) {
+  const searchQuery = req.query.q;
+
+  try {
+    const profiles = await _profileOps.find({
+      name: { $regex: searchQuery, $options: "i" }
+    });
+
+    res.render("profiles", { profiles: profiles, layout: "layouts/fullwidth" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.Index = async function (request, response) {
   console.log("loading profiles from controller");
   let profiles = await _profileOps.getAllProfiles();
@@ -10,6 +24,7 @@ exports.Index = async function (request, response) {
     response.render("profiles", {
       title: "Billing - Clients",
       profiles: profiles,
+      layout: "layouts/full-width",
       errorMessage: "",
     });
   } else {
@@ -17,6 +32,7 @@ exports.Index = async function (request, response) {
       title: "Billing - Clients",
       profiles: [],
       errorMessage: "",
+      layout: "layouts/full-width"
     });
   }
 };
@@ -33,11 +49,13 @@ exports.Detail = async function (request, response) {
       profiles: profiles,
       profileId: request.params.id,
       profile: profile,
+      layout: "layouts/full-width"
     });
   } else {
     response.render("profiles", {
       title: "Billing - Clients",
       profiles: [],
+      layout: "layouts/full-width"
     });
   }
 };
@@ -48,6 +66,7 @@ exports.Create = async function (request, response) {
     title: "Create Profile",
     errorMessage: "",
     profile: {},
+    layout: "layouts/full-width"
   });
 };
 
@@ -57,8 +76,8 @@ exports.CreateProfile = async function (request, response) {
   let tempProfileObj = new Profile({
     name: request.body.name,
     code: request.body.code,
-    email: request.body.email,
     company: request.body.company,
+    email: request.body.email
   });
 
   //
@@ -68,10 +87,11 @@ exports.CreateProfile = async function (request, response) {
   if (responseObj.errorMsg == "") {
     let profiles = await _profileOps.getAllProfiles();
     console.log(responseObj.obj);
-    response.render("profile", {
+    response.render("profiles", {
       title: "Express Billing - " + responseObj.obj.name,
       profiles: profiles,
       profileId: responseObj.obj._id.valueOf(),
+      layout: "layouts/full-width"
     });
   }
   // There are errors. Show form the again with an error message.
@@ -81,6 +101,7 @@ exports.CreateProfile = async function (request, response) {
       title: "Create Profile",
       profile: responseObj.obj,
       errorMessage: responseObj.errorMsg,
+      layout: "layouts/full-width"
     });
   }
 };
@@ -97,12 +118,14 @@ exports.DeleteProfileById = async function (request, response) {
       title: "Billing - Clients",
       profiles: profiles,
       errorMessage: "",
+      layout: "layouts/full-width"
     });
   } else {
     response.render("profiles", {
       title: "Billing - Clients",
       profiles: profiles,
       errorMessage: "Error.  Unable to Delete",
+      layout: "layouts/full-width"
     });
   }
 };
