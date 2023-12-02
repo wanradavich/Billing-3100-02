@@ -25,17 +25,6 @@ class ProductOps {
     }
   }
 
-  // async createProduct(productData){
-  //   try{
-  //     const newProduct = new Product(productData);
-  //     await newProduct.save();
-  //     return newProduct;
-  //   } catch (error) {
-  //     console.error("Error creating product: ", error);
-  //     throw error;
-  //   }
-  // }
-
   async createProduct(productObj) {
     try{
       const error = await productObj.validateSync();
@@ -68,31 +57,12 @@ class ProductOps {
       product[key] = productObj[key]
     }
     console.log("original product: ", product);
-    //product.product_id = id;
-    // product.productName = productName;
-    // product.unitCost = unitCost;
-    // product.productCode = productCode
-
     let result = await product.save();
     console.log("updated product: ", result);
     return {
       obj: result,
       errorMsg: ""
     };
-  }
-
-
-
-  async updateProduct(id, newData){
-    try{
-      const updatedProduct = await Product.findByIdAndUpdate(id, newData, {
-        new: true,
-      });
-      return updatedProduct;
-    }catch (error){
-      console.error("Error updating product: ", error);
-      throw error;
-    }
   }
 
   async deleteProduct(id) {
