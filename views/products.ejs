@@ -1,13 +1,18 @@
+<head>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
 <body>
-    <h1><%= title %></h1>
-    <!--SEARCH BAR TO BE INCLUDED LATER-->
-    <a href="/products/edit"><button>+ New Product</button></a>
+    <div class="header-container">
+        <h1>Products</h1>
+        <a class="btn btn-success" href="/products/edit">+ New Product</a> <!--change path name to the one you create if needed-->
+    </div>
     <ul>
         <% products.forEach(product => { %>
             <% if (product && product.productName && product._id) { %>
-                <li>
+                <li class="product-container">
                     <a href="/products/<%= product._id %>"><%= product.productName %></a> 
-                    <a href="/products/<%= product._id%>/delete"><button>Delete</button></a>
+                    <a href="/products/<%= product._id%>/delete" class="btn btn-danger"><button>Delete</button></a>
+
                 </li>
             <% } %>
         <% }) %>

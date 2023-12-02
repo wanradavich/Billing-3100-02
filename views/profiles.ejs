@@ -1,0 +1,16 @@
+<h1>Clients</h1>
+<div id="newSearchContainter">
+  <span><input type="text"><button class="btn btn-primary">Search</button></span>
+  <a href="/profiles/create"><button id="newcClient" class="btn btn-success">New Client</button></a>
+</div>
+<div>
+  <ul>
+    <% for (let i = 0; i < profiles.length; i++ ) {%>
+    <li className="clientsNames">
+      <a href="/profiles/<%= profiles[i].id %>"><%= profiles[i].name %></a>
+      <a href="/profiles/<%= profiles[i].id %>/delete"><button class="btn btn-danger">Delete</button></a>
+    </li>
+    <% } %>
+  </ul>
+</div>
+<%= errorMessage %>

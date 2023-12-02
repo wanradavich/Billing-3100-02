@@ -1,3 +1,4 @@
+
 <% for (let i = 0; i < products.length; i++) { %> <% if (products[i].id ===
     productId) { %>
     <h2><%= products[i].productName%></h2>
@@ -6,3 +7,4 @@
     <div>Cost: $<%= products[i].unitCost%></div>
     <a href="/products/edit/<%=products[i]._id%>"><button>Edit</button></a>
     <% } %> <% } %>
+

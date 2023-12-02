@@ -3,6 +3,35 @@ const _productOps = new ProductOps();
 const Product = require("../models/Product.js");
 
 
+exports.SearchProducts = async function(req, res) {
+  const searchQuery = req.query.q;
+
+  try {
+      const products = await _productOps.find({
+          productName: { $regex: searchQuery, $options: "i" }  
+      });
+
+      res.render("products", { products: products }); 
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+},
+
+//for client in the ClientController later
+// exports.SearchClients =  async function(req, res) {
+//   const searchQuery = req.query.q;
+
+//   try {
+//       const clients = await Client.find({
+//           clientName: { $regex: searchQuery, $options: "i" }
+//       });
+
+//       res.render("clients", { clients }); // Render clients.ejs with filtered clients
+//   } catch (error) {
+//       res.status(500).json({ error: error.message });
+//   }
+// }
+
 exports.Products = async function(request, response){
     console.log("loading products from controller");
     let products = await _productOps.getAllProducts();
@@ -76,6 +105,7 @@ exports.ProductDetail = async function (request, response) {
       });
     }
   };
+
 
 
   exports.Edit = async function (request, response) {
@@ -188,3 +218,4 @@ exports.ProductDetail = async function (request, response) {
       res.status(500).json({ error: "Error deleting product" });
     }
   };
+

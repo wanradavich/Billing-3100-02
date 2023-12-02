@@ -106,6 +106,18 @@ class ProductOps {
       throw error;
     }
   }
+
+  async find(query) {
+    try {
+      const products = await Product.find(query);
+      return products;
+    } catch (error) {
+      throw new Error(`Error finding products: ${error.message}`);
+    }
+  }
+  
 }
+
+
 
 module.exports = ProductOps;

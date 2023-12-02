@@ -1,18 +1,8 @@
 const express = require("express");
 const productsRouter = express.Router();
-// const ProductOps = require("../data/ProductOps");
 const productController = require("../controllers/ProductController");
  
-//view data
-const viewData = {
-    title: "A02 - Express Billing",
-    users: ["Pat", "Sydnee", "Kai", "Chuan"],
-    pages: [
-      { name: "Home", path: "/"},
-      { name: "Clients", path: "/clients"},
-      { name: "Products", path: "/products"}, 
-    ],
-  };
+
 
   productsRouter.get("/", productController.Products);
 
@@ -56,5 +46,11 @@ const viewData = {
 //     res.status(500).send("Error fetching product");
 //   }
 // });
+
+productsRouter.get("/", productController.Products);
+productsRouter.get("/products/:id", productController.ProductDetail);
+productsRouter.get("/search", productController.SearchProducts);
+ 
+
 
 module.exports = productsRouter;

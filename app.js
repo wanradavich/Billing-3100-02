@@ -3,7 +3,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const port = process.env.PORT || 3007;
+const port = process.env.PORT || 3008;
 require("dotenv").config();
 
 //declaring mongoose
@@ -15,6 +15,7 @@ const mongoose = require("mongoose");
 //load indexRouter
 const indexRouter = require("./routers/indexRouter");
 const productsRouter = require("./routers/productsRouter");
+const profilesRouter = require("./routers/profilesRouter");
 
 // set up default mongoose connection
 mongoose.connect(uri);
@@ -55,6 +56,7 @@ app.use(express.static("public"));
 //index route
 app.use("/", indexRouter);
 app.use("/products", productsRouter);
+app.use("/profiles", profilesRouter);
 
 //catch any unmatched routes
 app.all("/*", (req, res) => {
@@ -63,6 +65,8 @@ app.all("/*", (req, res) => {
 
 //start listening to port
 app.listen(port, () => console.log(`app listening on port ${port}!`))
+
+
 
 
 
