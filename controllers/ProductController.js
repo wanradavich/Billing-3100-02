@@ -9,7 +9,9 @@ exports.searchProducts = async function(req, res) {
       productName: { $regex: searchQuery, $options: "i" }
     });
 
-    res.render("productSearchResults", { products: products });
+    res.render("products", { 
+      products: products, 
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -37,6 +39,7 @@ exports.Products = async function(request, response){
         response.render("products", {
             title: "Express Billing - Products",
             products: products,
+            layout: "layouts/full-width"
         });
     } else {
         response.render("products", {

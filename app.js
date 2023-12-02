@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3008;
 require("dotenv").config();
 
-//for the searchbar
+//set up for the searchbar
 const profileController = require("./controllers/ProfileController");
 const productController = require("./controllers/ProductController");
 
@@ -54,7 +54,7 @@ app.use(bodyParser.json());
 //express static middleware : making the public folder globally accessible
 app.use(express.static("public"));
 
-//index route
+//routes
 app.use("/", indexRouter);
 app.use("/products", productsRouter);
 app.use("/profiles", profilesRouter);

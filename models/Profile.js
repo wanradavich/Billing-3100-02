@@ -6,19 +6,19 @@ const profileSchema = new mongoose.Schema({
     // },
     name: {
         type: String,
-        // required: true,
+        required: true,
     },
     code: {
         type: String,
-        // required: true,
+        required: true,
     },
     company: {
       type: String,
-      // required: true,
+      required: true,
   },
     email: {
       type: String,
-      // required: true,
+      required: true,
 }
     },
     {collection: "profiles"}
