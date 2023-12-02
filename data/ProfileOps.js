@@ -49,6 +49,18 @@ class ProfileOps {
     console.log(result);
     return result;
   }
+
+  //method for searchbar 
+  async find(query) {
+    try {
+      const products = await Profile.find(query);
+      return products;
+    } catch (error) {
+      throw new Error(`Error finding products: ${error.message}`);
+    }
+  }
+
+  
 }
 
 module.exports = ProfileOps;
