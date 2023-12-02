@@ -6,6 +6,16 @@ const app = express();
 const port = process.env.PORT || 3008;
 require("dotenv").config();
 
+//set up for the searchbar
+const profileController = require("./controllers/ProfileController");
+const productController = require("./controllers/ProductController");
+
+// Profile search route
+app.get("/profiles/search", profileController.searchProfiles);
+
+// Product search route
+app.get("/products/search", productController.searchProducts);
+
 //declaring mongoose
 const mongoose = require("mongoose");
 
@@ -53,7 +63,7 @@ app.use(bodyParser.json());
 //express static middleware : making the public folder globally accessible
 app.use(express.static("public"));
 
-//index route
+//routes
 app.use("/", indexRouter);
 app.use("/products", productsRouter);
 app.use("/profiles", profilesRouter);

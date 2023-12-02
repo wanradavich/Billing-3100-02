@@ -3,19 +3,21 @@ const _productOps = new ProductOps();
 const Product = require("../models/Product.js");
 
 
-exports.SearchProducts = async function(req, res) {
+exports.searchProducts = async function(req, res) {
   const searchQuery = req.query.q;
 
   try {
-      const products = await _productOps.find({
-          productName: { $regex: searchQuery, $options: "i" }  
-      });
+    const products = await _productOps.find({
+      productName: { $regex: searchQuery, $options: "i" }
+    });
 
-      res.render("products", { products: products }); 
+    res.render("products", { 
+      products: products, 
+    });
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
-},
+};
 
 //for client in the ClientController later
 // exports.SearchClients =  async function(req, res) {
@@ -39,6 +41,7 @@ exports.Products = async function(request, response){
         response.render("products", {
             title: "Express Billing - Products",
             products: products,
+            layout: "layouts/full-width"
         });
     } else {
         response.render("products", {

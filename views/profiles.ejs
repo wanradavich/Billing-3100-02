@@ -1,6 +1,13 @@
+<main>
+<div class="form-container">
+  <form action="/profiles/search" method="GET">
+    <input class="searchbar" type="text" name="q" placeholder="Search...">
+    <button class="btn btn-secondary" type="submit">Search</button>
+  </form>
+</div>
 <h1>Clients</h1>
 <div id="newSearchContainter">
-  <span><input type="text"><button class="btn btn-primary">Search</button></span>
+  <!-- <span><input type="text"><button class="btn btn-primary">Search</button></span> -->
   <a href="/profiles/create"><button id="newcClient" class="btn btn-success">New Client</button></a>
 </div>
 <div>
@@ -13,4 +20,4 @@
     <% } %>
   </ul>
 </div>
-<%= errorMessage %>
+</main>
