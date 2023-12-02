@@ -8,7 +8,7 @@ require("dotenv").config();
 
 //declaring mongoose
 const mongoose = require("mongoose");
-
+const Client = require("./models/Client.js")
 //mongoose connection string
  //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
  const uri = "mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority";
@@ -16,6 +16,7 @@ const mongoose = require("mongoose");
 const indexRouter = require("./routers/indexRouter");
 const productsRouter = require("./routers/productsRouter");
 const profilesRouter = require("./routers/profilesRouter");
+const clientsRouter = require("./routers/clientsRouter.js")
 
 //tell express where to find templates(views)
 app.set("views", path.join(__dirname, "views"));
@@ -48,6 +49,7 @@ app.use(express.static("public"));
 app.use("/", indexRouter);
 app.use("/products", productsRouter);
 app.use("/profiles", profilesRouter);
+app.use("/clients", clientsRouter);
 
 //catch any unmatched routes
 app.all("/*", (req, res) => {

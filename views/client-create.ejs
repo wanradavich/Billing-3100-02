@@ -1,0 +1,15 @@
+<h3>New Client</h3>
+
+<form action="/clients/create" method="POST">   
+    <label for="name">Name:</label>
+    <input id="name" name="name" type="text" value=<%= client.clientName ? client.clientName : '' %> >
+    <label for="clientCode">clientCode:</label>
+    <input id="clientCode" name="clientCode" type="text" value=<%= client.clientCode ? client.clientCode : '' %> >
+    <label for="companyName">companyName:</label>
+    <input id="companyName" name="companyName" type="text" value=<%= client.companyName ? client.companyName : '' %> >
+    <label for="emailAddress">emailAddress:</label>
+    <input id="emailAddress" name="emailAddress" type="text" value=<%= client.emailAddress ? client.emailAddress : '' %> >
+
+    <button type="submit" value="Submit">Submit</button>
+</form>
+<%= errorMessage %>

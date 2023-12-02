@@ -8,8 +8,9 @@ const viewData = {
     users: ["Pat", "Sydnee", "Kai", "Chuan"],
     pages: [
       { name: "Home", path: "/"},
-      { name: "Clients", path: "/clients"},
+      //{ name: "Clients", path: "/clients"},
       { name: "Products", path: "/products"}, 
+      
     ],
   };
 

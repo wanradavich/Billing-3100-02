@@ -1,0 +1,6 @@
+<h2>clients</h2>
+<ul>
+  <% for (let i = 0; i < clients.length; i++) { %>
+  <li><a href="/clients/<%= clients[i].id %>"><%= clients[i].name%></a></li>
+  <% } %>
+</ul>
