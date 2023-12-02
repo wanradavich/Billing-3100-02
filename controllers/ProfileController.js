@@ -105,6 +105,48 @@ exports.CreateProfile = async function (request, response) {
     });
   }
 };
+//handle edit by id
+exports.Edit = async function (request, response) {
+  const profileId = request.params.id;
+  let profileObj = await _profileOps.getProfileById(profileId);
+  response.render("profileEdit", {
+    title: "Edit Profile",
+    errorMessage: "",
+    profile_id: profileId,
+    profile: profileObj,
+  });
+};
+
+
+// Handle profile edit form submission
+exports.EditProfile = async function (request, response) {
+  const profileId = request.body.id;
+  //const profileName = request.body.name;
+
+  // send these to profileOps to update and save the document
+  let responseObj = await _profileOps.updateProfileById(profileId);
+
+  // if no errors, save was successful
+  if (responseObj.errorMsg == "") {
+    let profiles = await _profileOps.getAllProfiles();
+    response.render("profile", {
+      title: "Express Yourself - " + responseObj.obj.name,
+      profiles: profiles,
+      profileId: responseObj.obj.id.valueOf(),
+      layout: "./layouts/sidebar",
+    });
+  }
+  // There are errors. Show form the again with an error message.
+  else {
+    console.log("An error occured. Item not created.");
+    response.render("profileEdit", {
+      title: "Edit Profile",
+      profile: responseObj.obj,
+      profileId: profileId,
+      errorMessage: responseObj.errorMsg,
+    });
+  }
+};
 
 // Handle profile form GET request
 exports.DeleteProfileById = async function (request, response) {

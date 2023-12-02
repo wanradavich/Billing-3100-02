@@ -43,6 +43,22 @@ class ProfileOps {
       return response;
     }
   }
+
+  async updateProfileById(id, profileName) {
+    console.log(`updating profile by id ${id}`);
+    const profile = await Profile.findById(id);
+    console.log("original profile: ", profile);
+    profile.name = profileName;
+
+    let result = await profile.save();
+    console.log("updated profile: ", result);
+    return {
+      obj: result,
+      errorMsg: "",
+    };
+  }
+  
+
   async deleteProfileById(id) {
     console.log(`deleting profile by id ${id}`);
     let result = await Profile.findByIdAndDelete(id);

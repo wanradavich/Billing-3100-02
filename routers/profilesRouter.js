@@ -16,6 +16,8 @@ profilesRouter.get("/create", ProfileController.Create);
 profilesRouter.post("/create", ProfileController.CreateProfile);
 
 profilesRouter.get("/:id", ProfileController.Detail);
+profilesRouter.get("/edit", ProfileController.Edit);
+profilesRouter.post("/edit", ProfileController.EditProfile);
 
 profilesRouter.get("/:id/delete", ProfileController.DeleteProfileById);
 // profilesRouter.get("/search", ProfileController.SearchProducts);
