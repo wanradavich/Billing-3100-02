@@ -24,14 +24,15 @@ exports.Index = async function (request, response) {
 
 exports.Detail = async function (request, response) {
   const profileId = request.params.id;
-  console.log(`loading single profile by id ${profileId}`);
   let profile = await _profileOps.getProfileById(profileId);
   let profiles = await _profileOps.getAllProfiles();
+
   if (profile) {
     response.render("profileDetails", {
       title: "Express Yourself - " + profile.name,
       profiles: profiles,
       profileId: request.params.id,
+      profile: profile,
     });
   } else {
     response.render("profiles", {
