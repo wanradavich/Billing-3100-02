@@ -30,7 +30,7 @@ const dataPath = path.join(__dirname, "../data/");
 
 
 // Show listing of all profiles
-clientsRouter.get("/", ClientController.Index);
+clientsRouter.get("/", ClientController.ClientIndex);
 
 // Show Create Profile Form
 clientsRouter.get("/edit", ClientController.Create);
@@ -43,7 +43,7 @@ clientsRouter.get("/edit/:id", ClientController.Edit);
 clientsRouter.post("/edit/:id", ClientController.EditClient);
 
 // Show Individual Profile Details
-clientsRouter.get("/:id", ClientController.Detail);
+clientsRouter.get("/:id", ClientController.ClientDetail);
 
 // Delete an Individual Profile
 clientsRouter.get("/:id/delete", ClientController.DeleteClientById);

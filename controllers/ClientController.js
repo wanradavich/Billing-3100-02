@@ -1,36 +1,38 @@
 const Client = require("../models/Client.js");
-
 const ClientOps = require("../data/ClientOps");
 // instantiate the class so we can use its methods
 const _clientOps = new ClientOps();
 
-exports.Index = async function (request, response) {
+exports.ClientIndex = async function (request, response) {
   console.log("loading clients from controller");
   let clients = await _clientOps.getAllClients();
   if (clients) {
     response.render("clients", {
       title: "Express Yourself - Profiles",
       clients: clients,
+      errorMessage: "",
     });
   } else {
     response.render("clients", {
       title: "Express Yourself - Profiles",
       clients: [],
+      errorMessage: "",
     });
   }
 };
 
-exports.Detail = async function (request, response) {
+exports.ClientDetail = async function (request, response) {
   const clientId = request.params.id;
-  console.log(`loading single profile by id ${clientId}`);
-  let client = await _clientOps.getClientById(profileId);
+  console.log(`loading single client by id ${clientId}`);
+  let client = await _clientOps.getClientById(clientId);
   let clients = await _clientOps.getAllClients();
+
   if (client) {
     response.render("client", {
       title: "Express Yourself - " + client.clientName,
       clients: clients,
       clientId: request.params.id,
-      layout: "./layouts/sidebar",
+     
     });
   } else {
     response.render("clients", {
@@ -40,20 +42,20 @@ exports.Detail = async function (request, response) {
   }
 };
 
-// Handle profile form GET request
+// Handle client form GET request
 exports.Create = async function (request, response) {
-  response.render("client-create", {
-    title: "Create Client",
+  response.render("profile-create", {
+    title: "Create client",
     errorMessage: "",
-    profile: {},
+    client: {},
   });
 };
 
-// Handle profile form GET request
+// Handle client form post request
 exports.CreateClient = async function (request, response) {
   // instantiate a new Profile Object populated with form data
   let tempClientObj = new Client({
-    name: request.body.name,
+    clientName: request.body.clientName,
   });
 
   //
@@ -67,7 +69,7 @@ exports.CreateClient = async function (request, response) {
       title: "Express Yourself - " + responseObj.obj.name,
       clients: clients,
       clientId: responseObj.obj._id.valueOf(),
-      layout: "./layouts/sidebar",
+      
     });
   }
   // There are errors. Show form the again with an error message.
@@ -85,7 +87,7 @@ exports.DeleteClientById = async function (request, response) {
   const clientId = request.params.id;
   console.log(`deleting single client by id ${clientId}`);
   let deletedClient = await _clientOps.deleteProfileById(clientId);
-  let Clients = await _clientOps.getAllClients();
+  let clients = await _clientOps.getAllClients();
 
   if (deletedClient) {
     response.render("Clients", {
@@ -101,7 +103,7 @@ exports.DeleteClientById = async function (request, response) {
   }
 };
 
-// Handle edit profile form GET request
+// Handle edit client form GET request
 exports.Edit = async function (request, response) {
   const clientId = request.params.id;
   let clientObj = await _clientOps.getProfileById(clientId);
@@ -113,7 +115,7 @@ exports.Edit = async function (request, response) {
   });
 };
 
-// Handle profile edit form submission
+// Handle client edit form submission
 exports.EditClient = async function (request, response) {
   const clientId = request.body.client_id;
   const clientName = request.body.name;
@@ -128,7 +130,7 @@ exports.EditClient = async function (request, response) {
       title: "Express Yourself - " + responseObj.obj.name,
       clients: clients,
       clientId: responseObj.obj._id.valueOf(),
-      layout: "./layouts/sidebar",
+      
     });
   }
   // There are errors. Show form the again with an error message.
