@@ -1,7 +1,6 @@
 const Profile = require("../models/Profile.js");
-
 const ProfileOps = require("../data/ProfileOps");
-// instantiate the class so we can use its methods
+
 const _profileOps = new ProfileOps();
 
 exports.Index = async function (request, response) {
@@ -9,13 +8,13 @@ exports.Index = async function (request, response) {
   let profiles = await _profileOps.getAllProfiles();
   if (profiles) {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: profiles,
       errorMessage: "",
     });
   } else {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: [],
       errorMessage: "",
     });
@@ -24,6 +23,7 @@ exports.Index = async function (request, response) {
 
 exports.Detail = async function (request, response) {
   const profileId = request.params.id;
+  console.log(`loading single profile by id ${profileId}`);
   let profile = await _profileOps.getProfileById(profileId);
   let profiles = await _profileOps.getAllProfiles();
 
@@ -36,7 +36,7 @@ exports.Detail = async function (request, response) {
     });
   } else {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: [],
     });
   }
@@ -56,6 +56,9 @@ exports.CreateProfile = async function (request, response) {
   // instantiate a new Profile Object populated with form data
   let tempProfileObj = new Profile({
     name: request.body.name,
+    code: request.body.code,
+    email: request.body.email,
+    company: request.body.company,
   });
 
   //
@@ -91,13 +94,13 @@ exports.DeleteProfileById = async function (request, response) {
 
   if (deletedProfile) {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: profiles,
       errorMessage: "",
     });
   } else {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: profiles,
       errorMessage: "Error.  Unable to Delete",
     });

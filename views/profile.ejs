@@ -1,10 +1,20 @@
-<% for (let i = 0; i < profiles.length; i++) { %> <% if(profiles[i].id ===
-profileId) { %> <%= profiles[i].name%> <% if(profiles[i].imagePath) { %>
-<img src="<%= profiles[i].imagePath %>" alt="<%= profiles[i].name %>" />
+<!-- <% for (let i = 0; i < profiles.length; i++) { %> <% if(profiles[i].id ===
+profileId) { %> <%= profiles[i].name%>  { %>
 <% } %>
 <ul>
   <% for (let j = 0; j < profiles[i].interests.length; j++) { %>
   <li><%= profiles[i].interests[j] %></li>
   <% } %>
 </ul>
-<% } %> <% } %>
+<% } %> <% } %> -->
+
+<!-- <% for (let i = 0; i < customer.length; i++) { %>
+  <% if (customer[i].id === clientId) { %>
+    <p><strong>Name:</strong> <%= customer[i].name %></p>
+    <p><strong>Code:</strong> <%= customer[i].code %></p>
+    <p><strong>Company Name:</strong> <%= customer[i].company %></p>
+    <p><strong>Email:</strong> <%= customer[i].email %></p>
+    <a href="/profile/edit/<%= clientId %>"><button>Edit</button></a>
+  <% } %>
+<% } %> -->
+<h1>hi</h1>
