@@ -13,8 +13,8 @@ const productSchema = new mongoose.Schema({
         required: true,
     }
     },
-    {collection: "profiles"}
+    {collection: "products"}
 );
-const Profile = mongoose.model("Product", productSchema);
+const Product = mongoose.model("Product", productSchema);
 
-module.exports = Profile;
+module.exports = Product;

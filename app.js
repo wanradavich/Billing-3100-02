@@ -6,6 +6,16 @@ const app = express();
 const port = process.env.PORT || 3008;
 require("dotenv").config();
 
+//for the searchbar
+const profileController = require("./controllers/ProfileController");
+const productController = require("./controllers/ProductController");
+
+// Profile search route
+app.get("/profiles/search", profileController.searchProfiles);
+
+// Product search route
+app.get("/products/search", productController.searchProducts);
+
 //declaring mongoose
 const mongoose = require("mongoose");
 

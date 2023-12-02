@@ -4,6 +4,20 @@ const ProfileOps = require("../data/ProfileOps");
 // instantiate the class so we can use its methods
 const _profileOps = new ProfileOps();
 
+exports.searchProfiles = async function(req, res) {
+  const searchQuery = req.query.q;
+
+  try {
+    const profiles = await _profileOps.find({
+      name: { $regex: searchQuery, $options: "i" }
+    });
+
+    res.render("profileSearchResults", { profiles: profiles });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.Index = async function (request, response) {
   console.log("loading profiles from controller");
   let profiles = await _profileOps.getAllProfiles();
@@ -56,6 +70,9 @@ exports.CreateProfile = async function (request, response) {
   // instantiate a new Profile Object populated with form data
   let tempProfileObj = new Profile({
     name: request.body.name,
+    code: request.body.code,
+    company: request.body.company,
+    email: request.body.email
   });
 
   //

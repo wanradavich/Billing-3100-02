@@ -1,19 +1,19 @@
 const ProductOps = require("../data/ProductOps");
 const _productOps = new ProductOps();
 
-exports.SearchProducts = async function(req, res) {
+exports.searchProducts = async function(req, res) {
   const searchQuery = req.query.q;
 
   try {
-      const products = await _productOps.find({
-          productName: { $regex: searchQuery, $options: "i" }  
-      });
+    const products = await _productOps.find({
+      productName: { $regex: searchQuery, $options: "i" }
+    });
 
-      res.render("products", { products: products }); 
+    res.render("productSearchResults", { products: products });
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
-},
+};
 
 //for client in the ClientController later
 // exports.SearchClients =  async function(req, res) {
