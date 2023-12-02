@@ -81,8 +81,6 @@ class ProductOps {
     };
   }
 
-
-
   async updateProduct(id, newData){
     try{
       const updatedProduct = await Product.findByIdAndUpdate(id, newData, {

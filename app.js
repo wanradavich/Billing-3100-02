@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3008;
 require("dotenv").config();
 
-//set up for the searchbar
+// set up for the searchbar
 const profileController = require("./controllers/ProfileController");
 const productController = require("./controllers/ProductController");
 

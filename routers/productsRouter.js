@@ -7,16 +7,13 @@ const productController = require("../controllers/ProductController");
   productsRouter.get("/", productController.Products);
 
   productsRouter.get("/edit", productController.Create);
-  
   productsRouter.post("/edit", productController.CreateProduct);
-  
-  productsRouter.get("/:id", productController.ProductDetail);
-  
-  productsRouter.get("/edit/:id", productController.Edit);
-  
-  productsRouter.post("/edit/:id", productController.EditProduct);
 
+  productsRouter.get("/edit/:id", productController.Edit);
+  productsRouter.post("/edit/:id", productController.EditProduct);
+  
   productsRouter.get("/:id/delete", productController.DeleteProductById);
+  productsRouter.get("/:id", productController.ProductDetail);
 
 // productsRouter.get("/", async (req, res) => {
 //   try{
@@ -47,8 +44,8 @@ const productController = require("../controllers/ProductController");
 //   }
 // });
 
-productsRouter.get("/", productController.Products);
-productsRouter.get("/products/:id", productController.ProductDetail);
+// productsRouter.get("/", productController.Products);
+// productsRouter.get("/products/:id", productController.ProductDetail);
 // productsRouter.get("/search", productController.SearchProducts);
  
 
