@@ -25,16 +25,63 @@ class ProductOps {
     }
   }
 
-  async createProduct(productData){
+  // async createProduct(productData){
+  //   try{
+  //     const newProduct = new Product(productData);
+  //     await newProduct.save();
+  //     return newProduct;
+  //   } catch (error) {
+  //     console.error("Error creating product: ", error);
+  //     throw error;
+  //   }
+  // }
+
+  async createProduct(productObj) {
     try{
-      const newProduct = new Product(productData);
-      await newProduct.save();
-      return newProduct;
-    } catch (error) {
-      console.error("Error creating product: ", error);
-      throw error;
+      const error = await productObj.validateSync();
+      if(error){
+        const response = {
+          obj: productObj,
+          errorMsg: error.message
+        };
+        return response;
+      }
+      const result = await productObj.save();
+      const response = {
+        obj: result, 
+        errorMsg: ""
+      };
+      return response;
+    } catch(error) {
+      const response = {
+        obj: productObj,
+        errorMsg: error.message
+      };
+      return response;
     }
   }
+
+  async updateProductById(id, productObj) {
+    console.log(`updating product by id ${id}`);
+    const product = await Product.findById(id);
+    for (const key in productObj) {
+      product[key] = productObj[key]
+    }
+    console.log("original product: ", product);
+    //product.product_id = id;
+    // product.productName = productName;
+    // product.unitCost = unitCost;
+    // product.productCode = productCode
+
+    let result = await product.save();
+    console.log("updated product: ", result);
+    return {
+      obj: result,
+      errorMsg: ""
+    };
+  }
+
+
 
   async updateProduct(id, newData){
     try{
@@ -50,7 +97,9 @@ class ProductOps {
 
   async deleteProduct(id) {
     try {
+      console.log(`deleting product by id ${id}`);
       const deletedProduct = await Product.findByIdAndDelete(id);
+      console.log(deletedProduct);
       return deletedProduct;
     } catch (error) {
       console.error("Error deleting product: ", error);

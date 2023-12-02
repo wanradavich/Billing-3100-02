@@ -17,6 +17,15 @@ const indexRouter = require("./routers/indexRouter");
 const productsRouter = require("./routers/productsRouter");
 const profilesRouter = require("./routers/profilesRouter");
 
+// set up default mongoose connection
+mongoose.connect(uri);
+
+// store a reference to the default connection
+const db = mongoose.connection;
+
+// Bind connection to error event (to get notification of connection errors)
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
 //tell express where to find templates(views)
 app.set("views", path.join(__dirname, "views"));
 //set view engine to ejs
@@ -57,14 +66,7 @@ app.all("/*", (req, res) => {
 //start listening to port
 app.listen(port, () => console.log(`app listening on port ${port}!`))
 
-// set up default mongoose connection
-mongoose.connect(uri);
 
-// store a reference to the default connection
-const db = mongoose.connection;
-
-// Bind connection to error event (to get notification of connection errors)
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 
 
