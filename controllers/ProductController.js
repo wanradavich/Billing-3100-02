@@ -63,7 +63,7 @@ exports.ProductDetail = async function (request, response) {
       response.render("products", {
         title: "Products",
         products: products,
-        //product_id: responseObj.obj.product_id.valueOf(),
+        product_id: responseObj.obj.product_id.valueOf(),
         //this is where we can set the layout
       });
     }
@@ -105,7 +105,7 @@ exports.ProductDetail = async function (request, response) {
     // const productName = request.body.productName;
     // const unitPrice = request.body.unitCost;
     // const productCode = request.body.productCode;
-    console.log(productId);
+    console.log(`This is the product id${productId}`);
 //656a26e6490cf84463f9d76a
     let responseObj = await _productOps.updateProductById(productId, productObj);
 
@@ -114,7 +114,7 @@ exports.ProductDetail = async function (request, response) {
       response.render("product", {
         title: "Products",
         products: products,
-        product_id: responseObj.obj.product_id.valueOf(),
+        
         //insert layout to be used
       });
     }

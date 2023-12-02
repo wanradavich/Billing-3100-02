@@ -61,19 +61,6 @@ class ProductOps {
     }
   }
 
-  // async updateProductById(id, formData) {
-  //   const product = await Product.findById(id);
-  //   for (const key in formData) {
-  //     product[key] = formData[key];
-  //   }
-  // const result = await product.save();
-  //   const response = {
-  //     obj: result,
-  //     errorMsg: ''
-  //   };
-  //   return response;
-  // }
-  
   async updateProductById(id, productObj) {
     console.log(`updating product by id ${id}`);
     const product = await Product.findById(id);
