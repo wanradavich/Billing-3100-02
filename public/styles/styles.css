@@ -55,6 +55,22 @@ footer{
   list-style: none;
  }
 
- ul.a {
-  text-decoration: none;
- }
+ #clientsNames {
+  margin-top: 10px;    /* Add space above each list item */
+  margin-bottom: 10px; /* Add space below each list item */
+  list-style: none;    /* Remove default list styles */
+  padding: 0;          /* Remove default padding */
+}
+
+#clientsNames li {
+  display: flex;       /* Use flex container for each list item */
+  justify-content: space-between; /* Add space between name and delete button */
+  align-items: center; /* Align items vertically in the center */
+  padding-right: 10px; /* Add some space to the right of the list item */
+}
+
+#clientsNames a {
+  text-decoration: none; /* Remove underline from anchor tags within li#clientsNames */
+}
+
+
