@@ -1,22 +1,28 @@
-<h3>New Client</h3>
+<head>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<main id="clientMain">
+    <h1 id="pageHeading">New Client</h1>
 
-<form action="/profiles/create" method="POST">   
-    <div>
-        <label for="name">Name:</label>
-        <input id="name" name="name" type="text" value=<%= profile.name ? profile.name : '' %> >
-    </div>
-    <div>
-        <label for="code">Code:</label>
-        <input id="code" name="code" type="text" value=<%= profile.code ? profile.code : '' %> >
-    </div>
-    <div>
-        <label for="company">Company:</label>
-        <input id="company" name="company" type="text" value=<%= profile.company ? profile.company : '' %> >
-    </div>
-    <div>
-        <label for="email">Email:</label>
-        <input id="email" name="email" type="text" value=<%= profile.email ? profile.email : '' %> >
-    </div>
-    <button type="submit" value="Submit">Submit</button>
-</form>
+    <form action="/profiles/create" method="POST">   
+        <div>
+            <label for="name">Name:</label>
+            <input id="name" name="name" type="text" value=<%= profile.name ? profile.name : '' %> >
+        </div>
+        <div>
+            <label for="code">Code:</label>
+            <input id="code" name="code" type="text" value=<%= profile.code ? profile.code : '' %> >
+        </div>
+        <div>
+            <label for="company">Company:</label>
+            <input id="company" name="company" type="text" value=<%= profile.company ? profile.company : '' %> >
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input id="email" name="email" type="text" value=<%= profile.email ? profile.email : '' %> >
+        </div>
+        <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+    </form>
+</main>
+
 <%= errorMessage %>
