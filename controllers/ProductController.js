@@ -78,8 +78,10 @@ exports.ProductDetail = async function (request, response) {
       response.render("products", {
         title: "Products",
         products: products,
-        product_id: responseObj.obj.product_id.valueOf(),
         layout: "layouts/full-width"
+
+        product_id: responseObj.obj._id.valueOf(),
+
         //this is where we can set the layout
       });
     }
@@ -114,21 +116,13 @@ exports.ProductDetail = async function (request, response) {
       productCode: request.body.productCode,
     }
 
-    // const formObj = {
-    //   name: req.body.name,
-    //   code: req.body.code,
-    //   unit_cost: req.body.unit_cost
-    // };
-    // const productName = request.body.productName;
-    // const unitPrice = request.body.unitCost;
-    // const productCode = request.body.productCode;
     console.log(`This is the product id${productId}`);
-//656a26e6490cf84463f9d76a
+
     let responseObj = await _productOps.updateProductById(productId, productObj);
 
     if(responseObj.errorMsg == "") {
       let products = await _productOps.getAllProducts();
-      response.render("product", {
+      response.render("products", {
         title: "Products",
         products: products,
         layout: "layouts/full-width"
@@ -169,7 +163,7 @@ exports.ProductDetail = async function (request, response) {
       });
     }
   };
-  
+
   exports.deleteProduct = async function (req, res) {
     const productId = req.params.id;
     try {
