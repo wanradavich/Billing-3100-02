@@ -65,6 +65,18 @@ class ProductOps {
     };
   }
 
+  async updateProduct(id, newData){
+    try{
+      const updatedProduct = await Product.findByIdAndUpdate(id, newData, {
+        new: true,
+      });
+      return updatedProduct;
+    }catch (error){
+      console.error("Error updating product: ", error);
+      throw error;
+    }
+  }
+
   async deleteProduct(id) {
     try {
       console.log(`deleting product by id ${id}`);

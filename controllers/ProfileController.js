@@ -2,18 +2,16 @@ const Profile = require("../models/Profile.js");
 const ProfileOps = require("../data/ProfileOps");
 
 const _profileOps = new ProfileOps();
+const SearchOps = require("../data/SearchOps");
 
 exports.searchProfiles = async function(req, res) {
   const searchQuery = req.query.q;
 
-  try {
-    const profiles = await _profileOps.find({
-      name: { $regex: searchQuery, $options: "i" }
-    });
-
-    res.render("profiles", { profiles: profiles, layout: "layouts/fullwidth" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  try{
+    const profiles = await SearchOps.searchProfiles(searchQuery);
+    res.render("profiles", { profiles: profiles,  layout: "layouts/fullwidth"});
+  }catch (error){
+    res.status(500).json({error: error.message});
   }
 };
 

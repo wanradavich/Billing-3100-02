@@ -1,38 +1,18 @@
 const ProductOps = require("../data/ProductOps");
 const _productOps = new ProductOps();
 const Product = require("../models/Product.js");
-
+const SearchOps = require("../data/SearchOps");
 
 exports.searchProducts = async function(req, res) {
   const searchQuery = req.query.q;
 
-  try {
-    const products = await _productOps.find({
-      productName: { $regex: searchQuery, $options: "i" }
-    });
-
-    res.render("products", { 
-      products: products, 
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  try{
+    const products = await SearchOps.searchProducts(searchQuery);
+    res.render("products", {products: products, layout: "layouts/full-width"});
+  } catch (error){
+    res.status(500).json({error: error.message});
   }
 };
-
-//for client in the ClientController later
-// exports.SearchClients =  async function(req, res) {
-//   const searchQuery = req.query.q;
-
-//   try {
-//       const clients = await Client.find({
-//           clientName: { $regex: searchQuery, $options: "i" }
-//       });
-
-//       res.render("clients", { clients }); // Render clients.ejs with filtered clients
-//   } catch (error) {
-//       res.status(500).json({ error: error.message });
-//   }
-// }
 
 exports.Products = async function(request, response){
     console.log("loading products from controller");
@@ -47,6 +27,7 @@ exports.Products = async function(request, response){
         response.render("products", {
             title: "Express Billing - Products",
             products: [],
+            layout: "layouts/full-width"
         });
     }
 };
@@ -58,15 +39,16 @@ exports.ProductDetail = async function (request, response) {
     let products = await _productOps.getAllProducts();
     if (product) {
       response.render("productDetails", {
-        title: "Express Yourself - " + product.productName,
+        title: "Express Billing - " + product.productName,
         products: products,
         productId: request.params.id,
-        layout: "./layouts/full-width",
+        layout: "layouts/full-width",
       });
     } else {
       response.render("productsDetails", {
-        title: "Express Yourself - Products",
+        title: "Express Billing - Products",
         products: [],
+        layout: "layouts/full-width"
       });
     }
   };
@@ -77,6 +59,7 @@ exports.ProductDetail = async function (request, response) {
       errorMessage: "",
       product_id: null,
       product: {},
+      layout: "layouts/full-width"
     });
   };
 
@@ -95,7 +78,10 @@ exports.ProductDetail = async function (request, response) {
       response.render("products", {
         title: "Products",
         products: products,
+        layout: "layouts/full-width"
+
         product_id: responseObj.obj._id.valueOf(),
+
         //this is where we can set the layout
       });
     }
@@ -104,12 +90,11 @@ exports.ProductDetail = async function (request, response) {
       response.render("product-form", {
         title: "Create product",
         product: responseObj.obj,
-        errorMessage: responseObj.errorMsg
+        errorMessage: responseObj.errorMsg,
+        layout: "layouts/full-width"
       });
     }
   };
-
-
 
   exports.Edit = async function (request, response) {
     const productId = request.params.id;
@@ -118,7 +103,8 @@ exports.ProductDetail = async function (request, response) {
       title: "Edit Profile",
       errorMessage: "",
       product_id: productId,
-      product: productObj
+      product: productObj,
+      layout: "layouts/full-width"
     });
   };
 
@@ -127,7 +113,7 @@ exports.ProductDetail = async function (request, response) {
     const productObj = {
       productName: request.body.productName,
       unitPrice: request.body.unitCost,
-      productCode: request.body.productCode
+      productCode: request.body.productCode,
     }
 
     console.log(`This is the product id${productId}`);
@@ -139,7 +125,7 @@ exports.ProductDetail = async function (request, response) {
       response.render("products", {
         title: "Products",
         products: products,
-        
+        layout: "layouts/full-width"
         //insert layout to be used
       });
     }
@@ -149,7 +135,8 @@ exports.ProductDetail = async function (request, response) {
         title: "Edit Product",
         product: responseObj.obj,
         product_id: productId,
-        errorMessage: responseObj.errorMsg
+        errorMessage: responseObj.errorMsg,
+        layout: "layouts/full-width"
       });
     }
   };
@@ -163,18 +150,20 @@ exports.ProductDetail = async function (request, response) {
     if(deletedProduct) {
       response.render("products", {
         title: "Products",
-        products: products
+        products: products,
+        layout: "layouts/full-width"
       });
     }
     else {
       response.render("products", {
         title: "Products",
         products: products,
-        errorMessage: "Error. Could not delete product."
+        errorMessage: "Error. Could not delete product.",
+        layout: "layouts/full-width"
       });
     }
   };
-  //Im not sure if we need this function
+
   exports.deleteProduct = async function (req, res) {
     const productId = req.params.id;
     try {

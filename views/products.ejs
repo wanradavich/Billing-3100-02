@@ -1,7 +1,12 @@
-<head>
+<!-- <head>
     <link rel="stylesheet" href="/styles/styles.css">
-</head>
-
+</head> -->
+<div class="form-container">
+    <form action="/products/search" method="GET">
+      <input class="searchbar" type="text" name="q" placeholder="Search...">
+      <button class="btn btn-secondary" type="submit">Search</button>
+    </form>
+  </div>
 <body>
     <div class="header-container">
         <h1>Products</h1>
@@ -12,7 +17,7 @@
             <% if (product && product.productName && product._id) { %>
                 <li class="product-container">
                     <a href="/products/<%= product._id %>"><%= product.productName %></a> 
-                    <a href="/products/<%= product._id%>/delete" class="btn btn-danger"><button>Delete</button></a>
+                    <a href="/products/<%= product._id%>/delete" class="btn btn-danger">Delete</a>
 
                 </li>
             <% } %>
