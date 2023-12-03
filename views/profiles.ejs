@@ -1,23 +1,28 @@
+<head>
+  <link rel="stylesheet" href="/styles/styles.css">
+</head>
 <main>
-<div class="form-container">
-  <form action="/profiles/search" method="GET">
-    <input class="searchbar" type="text" name="q" placeholder="Search...">
-    <button class="btn btn-secondary" type="submit">Search</button>
-  </form>
-</div>
-<h1>Clients</h1>
-<div id="newSearchContainter">
-  <!-- <span><input type="text"><button class="btn btn-primary">Search</button></span> -->
-  <a href="/profiles/create"><button id="newcClient" class="btn btn-success">New Client</button></a>
-</div>
-<div>
-  <ul>
-    <% for (let i = 0; i < profiles.length; i++ ) {%>
-    <li className="clientsNames">
-      <a href="/profiles/<%= profiles[i].id %>"><%= profiles[i].name %></a>
-      <a href="/profiles/<%= profiles[i].id %>/delete"><button class="btn btn-danger">Delete</button></a>
-    </li>
-    <% } %>
-  </ul>
-</div>
+  <div class="form-container">
+    <form action="/profiles/search" method="GET">
+      <input class="searchbar" type="text" name="q" placeholder="Search...">
+      <button class="btn btn-secondary" type="submit">Search</button>
+    </form>
+  </div>
+  <div id="header-container">
+    <h1>Clients</h1>
+    <a href="/profiles/create"><button id="newcClient" class="btn btn-success">New Client</button></a>
+  </div>
+  <div>
+    <ul>
+      <% const sortedProfiles = profiles.slice().sort((a, b) => a.name.localeCompare(b.name)); %>
+      <% for (let i = 0; i < sortedProfiles.length; i++ ) { %>
+        <li id="clientsNames">
+          <a href="/profiles/<%= sortedProfiles[i].id %>"><%= sortedProfiles[i].name %></a>
+          <a href="/profiles/<%= sortedProfiles[i].id %>/delete"><button id="cliDelBtn" class="btn btn-danger">Delete</button></a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
 </main>
+
+

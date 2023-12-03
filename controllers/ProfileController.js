@@ -1,7 +1,6 @@
 const Profile = require("../models/Profile.js");
-
 const ProfileOps = require("../data/ProfileOps");
-// instantiate the class so we can use its methods
+
 const _profileOps = new ProfileOps();
 
 exports.searchProfiles = async function(req, res) {
@@ -23,14 +22,14 @@ exports.Index = async function (request, response) {
   let profiles = await _profileOps.getAllProfiles();
   if (profiles) {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: profiles,
       layout: "layouts/full-width",
       errorMessage: "",
     });
   } else {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: [],
       errorMessage: "",
       layout: "layouts/full-width"
@@ -40,6 +39,7 @@ exports.Index = async function (request, response) {
 
 exports.Detail = async function (request, response) {
   const profileId = request.params.id;
+  console.log(`loading single profile by id ${profileId}`);
   let profile = await _profileOps.getProfileById(profileId);
   let profiles = await _profileOps.getAllProfiles();
 
@@ -53,7 +53,7 @@ exports.Detail = async function (request, response) {
     });
   } else {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: [],
       layout: "layouts/full-width"
     });
@@ -87,7 +87,7 @@ exports.CreateProfile = async function (request, response) {
   if (responseObj.errorMsg == "") {
     let profiles = await _profileOps.getAllProfiles();
     console.log(responseObj.obj);
-    response.render("profile", {
+    response.render("profiles", {
       title: "Express Billing - " + responseObj.obj.name,
       profiles: profiles,
       profileId: responseObj.obj._id.valueOf(),
@@ -115,14 +115,14 @@ exports.DeleteProfileById = async function (request, response) {
 
   if (deletedProfile) {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: profiles,
       errorMessage: "",
       layout: "layouts/full-width"
     });
   } else {
     response.render("profiles", {
-      title: "Express Yourself - Profiles",
+      title: "Billing - Clients",
       profiles: profiles,
       errorMessage: "Error.  Unable to Delete",
       layout: "layouts/full-width"
