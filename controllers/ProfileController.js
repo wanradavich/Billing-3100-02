@@ -120,20 +120,27 @@ exports.Edit = async function (request, response) {
 
 // Handle profile edit form submission
 exports.EditProfile = async function (request, response) {
-  const profileId = request.body.id;
-  //const profileName = request.body.name;
-
+  const profileId = request.body.profile_id;
+  
+  const profileObj = {
+    name: request.body.name,
+    code: request.body.code,
+    company: request.body.company,
+    email:request.body.email
+  }
+  console.log(`This is the profile id${profileId}`);
   // send these to profileOps to update and save the document
-  let responseObj = await _profileOps.updateProfileById(profileId);
+  let responseObj = await _profileOps.updateProfileById(profileId,profileObj);
 
   // if no errors, save was successful
   if (responseObj.errorMsg == "") {
     let profiles = await _profileOps.getAllProfiles();
-    response.render("profile", {
-      title: "Express Yourself - " + responseObj.obj.name,
+    console.log(responseObj.obj);
+    response.render("profiles", {
+      title: "Express Billing - " + responseObj.obj.name,
       profiles: profiles,
-      profileId: responseObj.obj.id.valueOf(),
-      layout: "./layouts/sidebar",
+      profileId: responseObj.obj._id.valueOf(),
+      layout: "layouts/full-width"
     });
   }
   // There are errors. Show form the again with an error message.
@@ -142,7 +149,7 @@ exports.EditProfile = async function (request, response) {
     response.render("profileEdit", {
       title: "Edit Profile",
       profile: responseObj.obj,
-      profileId: profileId,
+      profile_id: profileId,
       errorMessage: responseObj.errorMsg,
     });
   }

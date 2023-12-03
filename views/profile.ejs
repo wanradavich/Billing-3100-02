@@ -1,55 +1,14 @@
-<<<<<<< HEAD
-<!-- <% for (let i = 0; i < profiles.length; i++) { %> <% if(profiles[i].id ===
-profileId) { %> <%= profiles[i].name%>  { %>
-<% } %>
-<ul>
-  <% for (let j = 0; j < profiles[i].interests.length; j++) { %>
-  <li><%= profiles[i].interests[j] %></li>
-  <% } %>
-</ul>
-<% } %> <% } %> -->
-
-<!-- <% for (let i = 0; i < customer.length; i++) { %>
-  <% if (customer[i].id === clientId) { %>
-    <p><strong>Name:</strong> <%= customer[i].name %></p>
-    <p><strong>Code:</strong> <%= customer[i].code %></p>
-    <p><strong>Company Name:</strong> <%= customer[i].company %></p>
-    <p><strong>Email:</strong> <%= customer[i].email %></p>
-    <a href="/profile/edit/<%= clientId %>"><button>Edit</button></a>
-  <% } %>
-<% } %> -->
-<h1>hi</h1>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Profile</title>
-</head>
-<body>
-    <h3>New Client</h3>
-
-    <form action="/profiles/create" method="POST">   
-        <div>
-            <label for="name">Name:</label>
-            <input id="name" name="name" type="text" value=<%= profiles.name ? profiles.name : '' %> >
-        </div>
-        <div>
-            <label for="code">Code:</label>
-            <input id="code" name="code" type="text" value=<%= profiles.code ? profiles.code : '' %> >
-        </div>
-        <div>
-            <label for="company">Company:</label>
-            <input id="company" name="company" type="text" value=<%= profiles.company ? profiles.company : '' %> >
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input id="email" name="email" type="text" value=<%= profiles.email ? profiles.email : '' %> >
-        </div>
-        <button type="submit" value="Submit">Submit</button>
-    </form>
-   
-</body>
-</html>
-
->>>>>>> 39076e0bb1ddb1d78d4cce2f1813b9787b8db1b0
+<% for (let i = 0; i < profiles.length; i++) { %> <% if(profiles[i].id ===
+    profileId) { %>
+    <h2><%= profiles[i].name%></h2>
+    <% if(profiles[i].imagePath) { %>
+    <img src="<%= profiles[i].imagePath %>" alt="<%= profiles[i].name %>" />
+    <% } %>
+    <ul>
+      <% for (let j = 0; j < profiles[i].interests.length; j++) { %>
+      <li><%= profiles[i].interests[j] %></li>
+      <% } %>
+    </ul>
+    <a href="/profiles/edit/<%= profileId %>"><button>Edit</button></a>
+    <% } %> <% } %>
+    
