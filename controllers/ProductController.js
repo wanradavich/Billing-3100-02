@@ -19,20 +19,6 @@ exports.searchProducts = async function (req, res) {
   }
 };
 
-//for client in the ClientController later
-// exports.SearchClients =  async function(req, res) {
-//   const searchQuery = req.query.q;
-
-//   try {
-//       const clients = await Client.find({
-//           clientName: { $regex: searchQuery, $options: "i" }
-//       });
-
-//       res.render("clients", { clients }); // Render clients.ejs with filtered clients
-//   } catch (error) {
-//       res.status(500).json({ error: error.message });
-//   }
-// }
 
 exports.Products = async function (request, response) {
   console.log("loading products from controller");
@@ -96,7 +82,6 @@ exports.CreateProduct = async function (request, response) {
       title: "Products",
       products: products,
       product_id: responseObj.obj._id.valueOf(),
-      //this is where we can set the layout
     });
   } else {
     console.log("An error occured. Product was not created.");
@@ -136,8 +121,6 @@ exports.EditProduct = async function (request, response) {
     response.render("products", {
       title: "Products",
       products: products,
-
-      //insert layout to be used
     });
   } else {
     console.log("An error occured. Item was not updated.");
@@ -169,17 +152,5 @@ exports.DeleteProductById = async function (request, response) {
     });
   }
 };
-//Im not sure if we need this function
-exports.deleteProduct = async function (req, res) {
-  const productId = req.params.id;
-  try {
-    const deletedProduct = await ProductOps.deleteProduct(productId);
-    if (!deletedProduct) {
-      res.status(404).json({ error: "Product not found" });
-    } else {
-      res.status(200).json(deletedProduct);
-    }
-  } catch (error) {
-    res.status(500).json({ error: "Error deleting product" });
-  }
-};
+
+
