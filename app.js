@@ -10,18 +10,13 @@ require("dotenv").config();
 const profileController = require("./controllers/ProfileController");
 const productController = require("./controllers/ProductController");
 
-// Profile search route
-app.get("/profiles/search", profileController.searchProfiles);
-
-// Product search route
-app.get("/products/search", productController.searchProducts);
-
 //declaring mongoose
 const mongoose = require("mongoose");
 
 //mongoose connection string
- //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
- const uri = process.env.MONGO_CONNECTION_STRING;
+//"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
+const uri =
+  "mongodb+srv://jsolomon:hdMEf-ijn3A4fVvAyKWr@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority";
 //load indexRouter
 const indexRouter = require("./routers/indexRouter");
 const productsRouter = require("./routers/productsRouter");
@@ -46,7 +41,7 @@ const expressLayouts = require("express-ejs-layouts");
 //use ejs layout
 app.use(expressLayouts);
 //set default layout
-app.set("layout", "layouts/full-width")
+app.set("layout", "layouts/full-width");
 
 //morgan logging middleware
 const logger = require("morgan");
@@ -57,11 +52,17 @@ app.use(logger("dev"));
 const bodyParser = require("body-parser");
 const { profile } = require("console");
 const Profile = require("./models/Product");
-app.use(bodyParser.urlencoded({extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //express static middleware : making the public folder globally accessible
 app.use(express.static("public"));
+
+// Profile search route
+app.get("/profiles/search", profileController.searchProfiles);
+
+// Product search route
+app.get("/products/search", productController.searchProducts);
 
 //routes
 app.use("/", indexRouter);
@@ -70,15 +71,11 @@ app.use("/profiles", profilesRouter);
 
 //catch any unmatched routes
 app.all("/*", (req, res) => {
-    res.status(404).send("File not found.")
+  res.status(404).send("File not found.");
 });
 
 //start listening to port
-app.listen(port, () => console.log(`app listening on port ${port}!`))
-
-
-
-
+app.listen(port, () => console.log(`app listening on port ${port}!`));
 
 // Once we have our connection, let's load and log our profiles
 // db.once("open", async function () {
@@ -86,9 +83,9 @@ app.listen(port, () => console.log(`app listening on port ${port}!`))
 //     console.log("Profiles:", profiles);
 //     db.close();
 // });
-  
-  // Don't close the connection here
-  
+
+// Don't close the connection here
+
 //   async function getAllProfiles() {
 //     let profiles = await Profile.find({});
 //     return profiles;
@@ -99,6 +96,3 @@ app.listen(port, () => console.log(`app listening on port ${port}!`))
 //     let profile = await Profile.findById(id);
 //     return profile;
 // }
-
-
-
