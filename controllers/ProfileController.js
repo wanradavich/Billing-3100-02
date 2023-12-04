@@ -105,6 +105,55 @@ exports.CreateProfile = async function (request, response) {
     });
   }
 };
+//handle edit by id
+exports.Edit = async function (request, response) {
+  const profileId = request.params.id;
+  let profileObj = await _profileOps.getProfileById(profileId);
+  response.render("profileEdit", {
+    title: "Edit Profile",
+    errorMessage: "",
+    profile_id: profileId,
+    profile: profileObj,
+  });
+};
+
+
+// Handle profile edit form submission
+exports.EditProfile = async function (request, response) {
+  const profileId = request.body.profile_id;
+  
+  const profileObj = {
+    name: request.body.name,
+    code: request.body.code,
+    company: request.body.company,
+    email:request.body.email
+  }
+  console.log(`This is the profile id${profileId}`);
+  // send these to profileOps to update and save the document
+  let responseObj = await _profileOps.updateProfileById(profileId,profileObj);
+
+  // if no errors, save was successful
+  if (responseObj.errorMsg == "") {
+    let profiles = await _profileOps.getAllProfiles();
+    console.log(responseObj.obj);
+    response.render("profiles", {
+      title: "Express Billing - " + responseObj.obj.name,
+      profiles: profiles,
+      profileId: responseObj.obj._id.valueOf(),
+      layout: "layouts/full-width"
+    });
+  }
+  // There are errors. Show form the again with an error message.
+  else {
+    console.log("An error occured. Item not created.");
+    response.render("profileEdit", {
+      title: "Edit Profile",
+      profile: responseObj.obj,
+      profile_id: profileId,
+      errorMessage: responseObj.errorMsg,
+    });
+  }
+};
 
 // Handle profile form GET request
 exports.DeleteProfileById = async function (request, response) {

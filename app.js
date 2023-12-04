@@ -14,9 +14,8 @@ const productController = require("./controllers/ProductController");
 const mongoose = require("mongoose");
 
 //mongoose connection string
-//"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
-const uri =
-  "mongodb+srv://jsolomon:hdMEf-ijn3A4fVvAyKWr@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority";
+ //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
+ const uri = "mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority";
 //load indexRouter
 const indexRouter = require("./routers/indexRouter");
 const productsRouter = require("./routers/productsRouter");

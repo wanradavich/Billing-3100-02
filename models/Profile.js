@@ -1,23 +1,20 @@
 const mongoose = require("mongoose");
 const profileSchema = new mongoose.Schema({
-    // clientId: {
-    //     type: Number,
-    //     required: true,
-    // },
+  
     name: {
-        type: String,
+        type: "String",
         required: true,
     },
     code: {
-        type: String,
-        required: true,
+      type: "String",
+      required: true,
     },
     company: {
-      type: String,
+      type: "String",
       required: true,
   },
     email: {
-      type: String,
+      type: "String",
       required: true,
 }
     },
