@@ -11,7 +11,7 @@ exports.searchProfiles = async function(req, res) {
       name: { $regex: searchQuery, $options: "i" }
     });
 
-    res.render("profiles", { profiles: profiles, layout: "layouts/fullwidth" });
+    res.render("profiles", { profiles: profiles, layout: "layouts/full-width" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
