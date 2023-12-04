@@ -1,18 +1,16 @@
 <head>
   <link rel="stylesheet" href="/styles/styles.css">
 </head>
-<main>
-  <div class="form-container">
-    <form action="/profiles/search" method="GET">
-      <input class="searchbar" type="text" name="q" placeholder="Search...">
-      <button class="btn btn-secondary" type="submit">Search</button>
-    </form>
-  </div>
+<main id="mainContainer">
   <div id="header-container">
     <h1>Clients</h1>
-    <a href="/profiles/create"><button id="newcClient" class="btn btn-success">New Client</button></a>
+    <form id="searchForm" action="/profiles/search" method="GET">
+      <input class="searchbar" type="text" name="q" placeholder="Search by name">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    <a id="create-button" href="/profiles/create"><button id="newcClient" class="btn btn-success">Add New Client</button></a>
   </div>
-  <div>
+  <div id="list-container">
     <ul>
       <% const sortedProfiles = profiles.slice().sort((a, b) => a.name.localeCompare(b.name)); %>
       <% for (let i = 0; i < sortedProfiles.length; i++ ) { %>
