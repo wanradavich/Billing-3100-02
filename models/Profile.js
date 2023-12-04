@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 const profileSchema = new mongoose.Schema({
-    // clientId: {
-    //     type: Number,
-    //     required: true,
-    // },
+  
     name: {
         type: "String",
         required: true,
