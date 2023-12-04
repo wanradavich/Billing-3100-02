@@ -10,7 +10,7 @@ const productController = require("../controllers/ProductController");
   
   productsRouter.post("/edit", productController.CreateProduct);
   
-  productsRouter.get("/:id", productController.ProductDetail);
+  //productsRouter.get("/:id", productController.ProductDetail);
   
   productsRouter.get("/edit/:id", productController.Edit);
   
