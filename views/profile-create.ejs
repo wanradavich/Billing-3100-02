@@ -1,9 +1,5 @@
-<head>
-    <link rel="stylesheet" href="/styles/styles.css">
-</head>
-<main id="clientMain">
-    <h1 id="pageHeading">New Client</h1>
-
+<h1 id="pageHeading">New Client</h1>
+<div id="form-container">
     <form action="/profiles/create" method="POST">   
         <div>
             <label for="name">Name:</label>
@@ -23,6 +19,5 @@
         </div>
         <button type="submit" value="Submit" class="btn btn-success">Submit</button>
     </form>
-</main>
-
+</div>
 <%= errorMessage %>
