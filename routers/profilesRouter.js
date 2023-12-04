@@ -11,15 +11,16 @@ const dataPath = path.join(__dirname, "../data/");
 
 profilesRouter.get("/", ProfileController.Index);
 
-// note that the create route need to come before the detail routes or else it will be interpreted as a detail route
+//router for create
 profilesRouter.get("/create", ProfileController.Create);
 profilesRouter.post("/create", ProfileController.CreateProfile);
-
+//router for get by id
 profilesRouter.get("/:id", ProfileController.Detail);
 profilesRouter.get("/edit/:id", ProfileController.Edit);
 profilesRouter.post("/edit/:id", ProfileController.EditProfile);
+//router for delete
 profilesRouter.get("/:id/delete", ProfileController.DeleteProfileById);
-// profilesRouter.get("/search", ProfileController.SearchProducts);
+
 
 
 module.exports = profilesRouter;
